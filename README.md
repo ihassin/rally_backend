@@ -9,3 +9,11 @@ brew install postgres
 
 ```
 
+## Running tests
+
+rspec
+
+```
+rake
+
+```
