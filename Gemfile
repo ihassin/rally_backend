@@ -28,6 +28,13 @@ gem 'rails_12factor', group: :production
 
 gem 'newrelic_rpm'
 
+gem 'database_cleaner',   :group => [:test, :staging]
+gem 'simplecov',          :require => false, :group => [:test, :staging]
+gem 'rspec-rails',        :group => [:test, :staging]
+gem 'rspec',              :group => [:test, :staging]
+gem 'rspec-mocks',        :group => [:test, :staging]
+gem 'cucumber-rails'    , :require => false, :group => [:test, :staging]
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
