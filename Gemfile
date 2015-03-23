@@ -3,11 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
-# Use postgres as the database for Active Record
 gem 'pg'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -32,6 +28,13 @@ gem 'rails_12factor', group: :production
 
 gem 'newrelic_rpm'
 
+gem 'database_cleaner',   :group => [:test, :staging]
+gem 'simplecov',          :require => false, :group => [:test, :staging]
+gem 'rspec-rails',        :group => [:test, :staging]
+gem 'rspec',              :group => [:test, :staging]
+gem 'rspec-mocks',        :group => [:test, :staging]
+gem 'cucumber-rails'    , :require => false, :group => [:test, :staging]
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -43,4 +46,3 @@ gem 'newrelic_rpm'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
