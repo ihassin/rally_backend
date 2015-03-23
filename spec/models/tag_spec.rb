@@ -18,8 +18,22 @@ describe Tag do
     end
 
     context "valid" do
+      it "has a name" do
+        a = Tag.new(@valid_attributes)
+        expect(a.valid?).to be(true)
+      end
     end
 
   end
 
 end
+
+# == Schema Information
+#
+# Table name: tags
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#  name       :string(255)
+#
