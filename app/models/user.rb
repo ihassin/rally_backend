@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	belongs_to :tag
   validates :latitude,  :inclusion => -90..90
   validates :longitude,  :inclusion => -180..180
+  validates :vendor_id, :presence => true
 end
 
 # == Schema Information
