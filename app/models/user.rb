@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	belongs_to :tag
-  validates :latitude,  :inclusion => -90..90
-  validates :longitude,  :inclusion => -180..180
+  validates :latitude,  :inclusion => -90..90, :allow_nil => true
+  validates :longitude,  :inclusion => -180..180, :allow_nil => true
   validates :vendor_id, :presence => true
 end
 
