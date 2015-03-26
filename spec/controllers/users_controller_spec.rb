@@ -55,4 +55,32 @@ describe UsersController do
     end
 
   end
+
+  describe "GET index", :type => :controller do
+    it "returns proper json to a user index request" do
+      user1 = User.create! iphone_data
+      user2 = User.create! iphone_data
+
+      get :index, :format => :json
+
+      resp = JSON.parse(response.body)
+      expect(response.status).to eq 200
+
+      expect(resp.length).to eq 2
+    end
+
+  end
+
+  describe "Delete", :type => :controller do
+    it "returns proper json to a user delete request" do
+      user1 = User.create! iphone_data
+      user2 = User.create! iphone_data
+
+      delete :destroy, :id => user1.id, :format => :json
+
+      expect(response.status).to eq 200
+      expect(User.all.count).to eq 1
+    end
+
+  end
 end
