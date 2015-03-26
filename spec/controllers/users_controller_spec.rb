@@ -19,6 +19,8 @@ describe UsersController do
       post :create, :user => iphone_data, :format => :json
 
       resp = JSON.parse(response.body)
+      expect(response.status).to eq 201
+
       expect(resp['id']).to_not eq(0)
       expect(resp['latitude']).to eq(1)
       expect(resp['longitude']).to eq(2)
@@ -47,6 +49,8 @@ describe UsersController do
       get :show, :id => user.id, :format => :json
 
       resp = JSON.parse(response.body)
+      expect(response.status).to eq 200
+
       expect(resp['latitude']).to eq 1
     end
 
