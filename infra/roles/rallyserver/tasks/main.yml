@@ -1,0 +1,80 @@
+---
+  - name: Install needed packages for the app
+    apt: pkg={{item}} state=installed
+    with_items:
+      - bundler
+      - build-essential
+      - nginx
+
+  - name: Make directory for database.yml
+    file: path=/home/{{user}}/{{appname}}/shared/config owner={{user}} state=directory
+
+  - name: Make assets directory
+    file: path=/home/{{user}}/{{appname}}/shared/assets owner={{user}} state=directory
+
+  - name: Create dummy file for Rails 4/Cap 3 (assets will appear magically)
+    template: src=manifest.yml dest=/home/{{user}}/{{appname}}/shared/assets/manifest.yml owner={{user}}
+
+  - name: Copy bitbucket creds
+    template: src={{item}} dest=/home/{{user}}/.ssh/ owner={{user}} mode=0600
+    with_items:
+      - bitbucket_rsa
+      - bitbucket_rsa.pub
+      - deploy_rsa
+      - deploy_rsa.pub
+
+  - name: Copy database.yml
+    template: src=database.yml dest=/home/{{user}}/{{appname}}/shared/config/database.yml owner={{user}}
+
+  - name: chmod app's top dir
+    command: chmod -R 0755 /home/{{user}}/{{appname}}
+
+  - name: Set up ssh
+    template: src=ssh_config dest=/home/{{user}}/.ssh/config owner={{user}}
+
+  - name: Remove nginx default conf
+    file: path=/etc/nginx/sites-enabled/default state=absent
+
+  - name: Copy nginx conf file to available
+    template: src=nginx.conf dest=/etc/nginx/sites-available/{{appname}}.conf owner={{user}}
+
+  - name: Symlink it to enabled
+    file: src=/etc/nginx/sites-available/{{appname}}.conf dest=/etc/nginx/sites-enabled/00-{{appname}}.conf state=link
+
+  - name: User group operations
+    command: sudo chgrp -R www-data /home/{{user}}/{{appname}}
+
+  - name: Add www-data to deploy group
+    command: sudo usermod -a -G www-data {{user}}
+
+  - name: Set up cron for logrotate
+    cron: name="NewsAlert Logrotate" job="logrotate -v /etc/logrotate.d/NewsAlert" state=present special_time=daily user={{user}}
+
+  - name: FW Deny hackers
+    ufw: rule=deny src={{item}}
+    with_items:
+      - 5.57.225.125
+      - 46.23.77.175
+      - 54.166.179.135
+      - 64.202.161.46
+      - 65.207.23.201
+      - 72.55.168.51
+      - 89.248.171.2
+      - 89.248.172.175
+      - 91.221.108.181
+      - 93.179.98.218
+      - 94.23.40.22
+      - 94.249.192.112
+      - 98.126.135.138
+      - 115.239.248.56
+      - 122.226.73.131
+      - 165.233.46.204
+      - 176.102.38.75
+      - 190.221.1.136
+      - 193.150.120.74
+      - 184.154.169.194
+      - 185.25.49.183
+      - 188.225.76.85
+
+  - name: FW reload
+    ufw: state=reloaded

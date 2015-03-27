@@ -1,0 +1,6 @@
+---
+user: deploy
+appname: rallyserver
+nardbinternal: 10.128.250.127
+dbstage: 33.33.33.34
+dbpassword: raindrop
