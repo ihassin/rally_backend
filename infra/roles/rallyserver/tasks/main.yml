@@ -5,6 +5,7 @@
       - bundler
       - build-essential
       - nginx
+      - libpq-dev
 
   - name: Make directory for database.yml
     file: path=/home/{{user}}/{{appname}}/shared/config owner={{user}} state=directory
