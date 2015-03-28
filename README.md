@@ -46,3 +46,13 @@ Then run Ansible:
 ansible-playbook -i inventory-stage.ini web-playbook.yml -u root -v
 
 ```
+
+## Deploying to the Vagrant VM
+
+We use [capistrano](http://capistranorb.com)
+The script will use ssh to download the rails app from your repo, so make sure you add the deploy's key to github.
+
+```
+cap staging deploy
+
+```
