@@ -18,22 +18,11 @@
   - name: Create dummy file for Rails 4/Cap 3 (assets will appear magically)
     template: src=manifest.yml dest=/home/{{user}}/{{appname}}/shared/assets/manifest.yml owner={{user}}
 
-  - name: Copy bitbucket creds
-    template: src={{item}} dest=/home/{{user}}/.ssh/ owner={{user}} mode=0600
-    with_items:
-      - bitbucket_rsa
-      - bitbucket_rsa.pub
-      - deploy_rsa
-      - deploy_rsa.pub
-
   - name: Copy database.yml
     template: src=database.yml dest=/home/{{user}}/{{appname}}/shared/config/database.yml owner={{user}}
 
   - name: chmod app's top dir
     command: chmod -R 0755 /home/{{user}}/{{appname}}
-
-  - name: Set up ssh
-    template: src=ssh_config dest=/home/{{user}}/.ssh/config owner={{user}}
 
   - name: Remove nginx default conf
     file: path=/etc/nginx/sites-enabled/default state=absent

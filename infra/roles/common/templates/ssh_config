@@ -1,3 +1,0 @@
-Hostname bitbucket.com
- IdentityFile {{home}}/{{user}}/.ssh/{{user}}_rsa
- StrictHostKeyChecking no
