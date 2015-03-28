@@ -1,5 +1,8 @@
 # rally back end
 
+[![Build Status](https://travis-ci.org/ihassin/rally_backend.svg?branch=master)](https://travis-ci.org/ihassin/rally_backend)
+
+
 ## Setup
 
 ### Postgres on mac os x
