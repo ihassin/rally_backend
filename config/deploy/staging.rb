@@ -1,4 +1,4 @@
-set :stage, :staging
+set :stage, :development
 
 my_ip = "stage.rallyserver.com"
 my_user = "deploy"
@@ -10,4 +10,4 @@ role :db,  my_server
 
 server "#{my_ip}", user: "#{my_user}", roles: %w{web app}, my_property: :my_value
 
-fetch(:default_env).merge!(rails_env: :staging)
+fetch(:default_env).merge!(rails_env: :development)

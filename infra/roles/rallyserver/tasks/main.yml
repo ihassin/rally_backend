@@ -79,3 +79,12 @@
 
   - name: FW reload
     ufw: state=reloaded
+
+  - name: Copy Postgres conf file
+    template: src=pg_hba.conf dest=/etc/postgresql/9.3/main/pg_hba.conf
+
+  - name: Restart Postgresql
+    service: name=postgresql state=restarted
+
+  - name: Create deploy user on postgres
+    postgresql_user: name={{user}} password={{password}} role_attr_flags=CREATEDB,NOSUPERUSER login_user=postgres login_password=""

@@ -13,7 +13,7 @@ set :format, :pretty
 set :log_level, :debug
 set :pty, true
 
-set :user, 'deploy'
+#set :user, 'deploy'
 
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -26,7 +26,6 @@ namespace :deploy do
   task :stop do
     on roles(:app), in: :sequence do
       execute "sudo kill `cat #{current_path}/tmp/pids/unicorn.pid`"
-      execute "RAILS_ENV=#{fetch(:default_env)[:rails_env]} #{current_path}/bin/delayed_job stop"
     end
   end
 
@@ -35,7 +34,6 @@ namespace :deploy do
     on roles(:app), in: :sequence do
       execute "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -E #{fetch(:default_env)[:rails_env]} -D"
       execute "sudo service nginx reload"
-      execute "cd #{current_path} && bundle exec rails g delayed_job -s -q && RAILS_ENV=#{fetch(:default_env)[:rails_env]} #{current_path}/bin/delayed_job start"
     end
   end
 
@@ -43,13 +41,6 @@ namespace :deploy do
   task :restart do
     Rake::Task['deploy:stop'].execute rescue nil
     Rake::Task['deploy:start'].execute
-  end
-
-  desc "This will execute after publishing. It ensures delayed_job is installed and starts it"
-  task :ensure_delayed_job_active do
-    on roles(:app), in: :sequence do
-      execute "cd #{current_path} && bundle exec rails g delayed_job -s -q && RAILS_ENV=#{fetch(:default_env)[:rails_env]} #{current_path}/bin/delayed_job start"
-    end
   end
 
   task :before_test do
@@ -67,6 +58,5 @@ namespace :deploy do
   after :test, :after_test
   before :test, :before_test
 
-  after :published, :ensure_delayed_job_active
   after :finished, :restart
 end

@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails'
 gem 'responders'
 gem 'pg'
+gem 'sqlite3'
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -15,9 +16,6 @@ gem 'coffee-rails'
 
 gem 'execjs'
 gem 'therubyracer' #, platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
