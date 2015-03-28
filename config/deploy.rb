@@ -1,5 +1,5 @@
 set :application, 'rallyserver'
-set :repo_url, "git@github.com:ihassin/rally_backend.git"
+set :repo_url, "https://github.com/ihassin/rally_backend.git"
 set :use_sudo, true
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
