@@ -1,7 +1,0 @@
-Host bitbucket bitbucket.org
-Hostname bitbucket.org
-IdentityFile ~/.ssh/bitbucket_rsa
-
-Host github github.com
-Hostname github.com
-IdentityFile ~/.ssh/bitbucket_rsa
