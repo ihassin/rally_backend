@@ -6,6 +6,8 @@
       - build-essential
       - nginx
       - libpq-dev
+      - sqlite3
+      - libsqlite3-dev
 
   - name: Make directory for database.yml
     file: path=/home/{{user}}/{{appname}}/shared/config owner={{user}} state=directory
@@ -49,42 +51,4 @@
     command: sudo usermod -a -G www-data {{user}}
 
   - name: Set up cron for logrotate
-    cron: name="NewsAlert Logrotate" job="logrotate -v /etc/logrotate.d/NewsAlert" state=present special_time=daily user={{user}}
-
-  - name: FW Deny hackers
-    ufw: rule=deny src={{item}}
-    with_items:
-      - 5.57.225.125
-      - 46.23.77.175
-      - 54.166.179.135
-      - 64.202.161.46
-      - 65.207.23.201
-      - 72.55.168.51
-      - 89.248.171.2
-      - 89.248.172.175
-      - 91.221.108.181
-      - 93.179.98.218
-      - 94.23.40.22
-      - 94.249.192.112
-      - 98.126.135.138
-      - 115.239.248.56
-      - 122.226.73.131
-      - 165.233.46.204
-      - 176.102.38.75
-      - 190.221.1.136
-      - 193.150.120.74
-      - 184.154.169.194
-      - 185.25.49.183
-      - 188.225.76.85
-
-  - name: FW reload
-    ufw: state=reloaded
-
-  - name: Copy Postgres conf file
-    template: src=pg_hba.conf dest=/etc/postgresql/9.3/main/pg_hba.conf
-
-  - name: Restart Postgresql
-    service: name=postgresql state=restarted
-
-  - name: Create deploy user on postgres
-    postgresql_user: name={{user}} password={{password}} role_attr_flags=CREATEDB,NOSUPERUSER login_user=postgres login_password=""
+    cron: name="{{appname}} Logrotate" job="logrotate -v /etc/logrotate.d/{{appname}}" state=present special_time=daily user={{user}}

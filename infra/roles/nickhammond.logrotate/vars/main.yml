@@ -1,6 +1,6 @@
 logrotate_scripts:
-  - name: NewsAlert
-    path: "/home/deploy/narui/shared/log/*.log"
+  - name: Logrotate
+    path: "/home/deploy/{{appname}}/shared/log/*.log"
     options:
       - weekly
       - size 25M
