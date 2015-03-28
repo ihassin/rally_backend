@@ -1,0 +1,43 @@
+---
+  - name: Install needed packages for the app
+    apt: pkg={{item}} state=installed
+    with_items:
+      - bundler
+      - build-essential
+      - nginx
+      - libpq-dev
+      - sqlite3
+      - libsqlite3-dev
+
+  - name: Make directory for database.yml
+    file: path=/home/{{user}}/{{appname}}/shared/config owner={{user}} state=directory
+
+  - name: Make assets directory
+    file: path=/home/{{user}}/{{appname}}/shared/assets owner={{user}} state=directory
+
+  - name: Create dummy file for Rails 4/Cap 3 (assets will appear magically)
+    template: src=manifest.yml dest=/home/{{user}}/{{appname}}/shared/assets/manifest.yml owner={{user}}
+
+  - name: Copy database.yml
+    template: src=database.yml dest=/home/{{user}}/{{appname}}/shared/config/database.yml owner={{user}}
+
+  - name: chmod app's top dir
+    command: chmod -R 0755 /home/{{user}}/{{appname}}
+
+  - name: Remove nginx default conf
+    file: path=/etc/nginx/sites-enabled/default state=absent
+
+  - name: Copy nginx conf file to available
+    template: src=nginx.conf dest=/etc/nginx/sites-available/{{appname}}.conf owner={{user}}
+
+  - name: Symlink it to enabled
+    file: src=/etc/nginx/sites-available/{{appname}}.conf dest=/etc/nginx/sites-enabled/00-{{appname}}.conf state=link
+
+  - name: User group operations
+    command: sudo chgrp -R www-data /home/{{user}}/{{appname}}
+
+  - name: Add www-data to deploy group
+    command: sudo usermod -a -G www-data {{user}}
+
+  - name: Set up cron for logrotate
+    cron: name="{{appname}} Logrotate" job="logrotate -v /etc/logrotate.d/{{appname}}" state=present special_time=daily user={{user}}
