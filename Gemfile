@@ -39,6 +39,7 @@ gem 'rspec-rails',        :group => [:test, :staging]
 gem 'rspec',              :group => [:test, :staging]
 gem 'rspec-mocks',        :group => [:test, :staging]
 gem 'cucumber-rails'    , :require => false, :group => [:test, :staging]
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -6,5 +6,5 @@ env:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rake
+  - CODECLIMATE_REPO_TOKEN=aee288997e98199d9483eaf2ccab05bd4afe42b6f171e9451798732387d1fc74 bundle exec rake
 #bundler_args: --binstubs=./bundler_stubs
