@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ihassin/rally_backend.svg?branch=master)](https://travis-ci.org/ihassin/rally_backend) [![Code Climate](https://codeclimate.com/github/ihassin/rally_backend/badges/gpa.svg)](https://codeclimate.com/github/ihassin/rally_backend) [![Test Coverage](https://codeclimate.com/github/ihassin/rally_backend/badges/coverage.svg)](https://codeclimate.com/github/ihassin/rally_backend)
+[![Dependency Status](https://gemnasium.com/ihassin/rally_backend.svg)](https://gemnasium.com/ihassin/rally_backend)
 
 # rally back end
 
