@@ -66,3 +66,11 @@ We use [capistrano](http://capistranorb.com)
 cap staging deploy
 
 ```
+
+## Running in prod
+Make sure you have the environment variables set up (used in ```app/controllers/application_controller.rb```:)
+
+```
+  USER = Rails.env["RALLY_USERNAME"]
+  PASSWORD = Rails.env["RALLY_PASSWORD"]
+```
