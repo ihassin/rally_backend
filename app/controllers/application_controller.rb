@@ -7,9 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
 
   def authenticate
-    if %w(test development staging).include? Rails.env
-      return true
-    end
+    return true if %w(test development staging).include? Rails.env
+
     authenticate_or_request_with_http_basic do |user_name, password|
       (user_name == USER && password == PASSWORD)
     end
