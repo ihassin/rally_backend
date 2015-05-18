@@ -16,7 +16,8 @@ set :pty, true
 #set :user, 'deploy'
 
 set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system} # used to have 'bin' too
+set :bundle_binstubs, nil
 
 set :keep_releases, 3
 
